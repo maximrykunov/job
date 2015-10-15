@@ -28,7 +28,7 @@ RSpec.describe Applicant, type: :model do
   it { should allow_value("+74950010001").for(:contact) }
   it { should allow_value("test@example.com").for(:contact) }
 
-  # it { is_expected.to have_many :vacancy_skills }
-  # it { is_expected.to have_many(:skills).through(:vacancy_skills) }
+  it { is_expected.to have_many :applicant_skills }
+  it { is_expected.to have_many(:skills).through(:applicant_skills) }
 
 end

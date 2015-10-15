@@ -21,6 +21,9 @@ class Applicant < ActiveRecord::Base
   validate :contact_value
   validates :contact, uniqueness: true
 
+  has_many :applicant_skills
+  has_many :skills, through: :applicant_skills
+
   private
 
   def contact_value
