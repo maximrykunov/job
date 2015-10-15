@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @applicant.name
+%p
+  %b Contact:
+  = @applicant.contact
+%p
+  %b Status:
+  = @applicant.status
+%p
+  %b Salary:
+  = @applicant.salary
+
+= link_to 'Edit', edit_applicant_path(@applicant)
+\|
+= link_to 'Back', applicants_path

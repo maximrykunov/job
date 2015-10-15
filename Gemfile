@@ -14,6 +14,7 @@ gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 gem 'angularjs-rails'
 gem 'responders', '~> 2.0'
+gem 'enumerize'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
