@@ -9,6 +9,7 @@
       %th Validity
       %th Salary
       %th Contact
+      %th Skills
       %th
       %th
       %th
@@ -22,6 +23,7 @@
         %td= vacancy.validity
         %td= vacancy.salary
         %td= vacancy.contact
+        %td= vacancy.skills.pluck(:name)
         %td= link_to 'Show', vacancy
         %td= link_to 'Edit', edit_vacancy_path(vacancy)
         %td= link_to 'Destroy', vacancy, :method => :delete, :data => { :confirm => 'Are you sure?' }

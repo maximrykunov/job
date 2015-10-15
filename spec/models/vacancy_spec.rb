@@ -22,6 +22,8 @@ RSpec.describe Vacancy, type: :model do
   it { is_expected.to validate_presence_of(:validity) }
   it { is_expected.to validate_presence_of(:salary) }
   it { is_expected.to validate_presence_of(:contact) }
+  it { is_expected.to have_many :vacancy_skills }
+  it { is_expected.to have_many(:skills).through(:vacancy_skills) }
 
   it "returns a vacancy active status as false for future" do
     vacancy = build :vacancy, created_date: Date.today + 5.days
@@ -40,8 +42,9 @@ RSpec.describe Vacancy, type: :model do
 
   describe :class do
     it 'should respond to :active' do
-      create_list :vacancy, 2
-      expect(Vacancy.active).to eq Vacancy.where("created_date < now() and (created_date + validity) >= now()")
+      vacancy_1 = create :vacancy, created_date: Date.today + 5.days
+      vacancy_2 = create :vacancy
+      expect(Vacancy.active).to match_array([vacancy_2])
     end
   end
 end

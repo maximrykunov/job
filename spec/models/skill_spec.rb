@@ -15,4 +15,6 @@ RSpec.describe Skill, type: :model do
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_uniqueness_of(:name) }
+  it { is_expected.to have_many :vacancy_skills }
+  it { is_expected.to have_many(:vacancies).through(:vacancy_skills) }
 end

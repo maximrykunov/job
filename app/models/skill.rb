@@ -10,4 +10,7 @@
 
 class Skill < ActiveRecord::Base
   validates :name, presence: true, uniqueness: :true
+
+  has_many :vacancy_skills
+  has_many :vacancies, through: :vacancy_skills
 end
