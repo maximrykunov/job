@@ -11,7 +11,7 @@
 require 'rails_helper'
 
 RSpec.describe Skill, type: :model do
-  subject { create :skill }
+  subject { build :skill }
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_uniqueness_of(:name) }

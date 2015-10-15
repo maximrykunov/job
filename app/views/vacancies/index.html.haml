@@ -1,0 +1,31 @@
+%h1 Listing vacancies
+
+%table.table.table-bordered.table-hover
+  %thead
+    %tr
+      %th Name
+      %th Active
+      %th Created date
+      %th Validity
+      %th Salary
+      %th Contact
+      %th
+      %th
+      %th
+
+  %tbody
+    - @vacancies.each do |vacancy|
+      %tr{:class => (vacancy.active? ? "success" : "warning")}
+        %td= vacancy.name
+        %td= vacancy.active?
+        %td= vacancy.created_date
+        %td= vacancy.validity
+        %td= vacancy.salary
+        %td= vacancy.contact
+        %td= link_to 'Show', vacancy
+        %td= link_to 'Edit', edit_vacancy_path(vacancy)
+        %td= link_to 'Destroy', vacancy, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Vacancy', new_vacancy_path

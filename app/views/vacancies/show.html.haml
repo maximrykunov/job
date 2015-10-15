@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @vacancy.name
+%p
+  %b Created date:
+  = @vacancy.created_date
+%p
+  %b Validity:
+  = @vacancy.validity
+%p
+  %b Salary:
+  = @vacancy.salary
+%p
+  %b Contact:
+  = @vacancy.contact
+
+= link_to 'Edit', edit_vacancy_path(@vacancy)
+\|
+= link_to 'Back', vacancies_path
