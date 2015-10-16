@@ -22,7 +22,7 @@ RSpec.describe Vacancy, type: :model do
   it { is_expected.to validate_presence_of(:validity) }
   it { is_expected.to validate_presence_of(:salary) }
   it { is_expected.to validate_presence_of(:contact) }
-  it { is_expected.to have_many :vacancy_skills }
+  it { is_expected.to have_many(:vacancy_skills).dependent(:destroy) }
   it { is_expected.to have_many(:skills).through(:vacancy_skills) }
 
   it "returns a vacancy active status as false for future" do

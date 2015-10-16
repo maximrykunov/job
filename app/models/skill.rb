@@ -11,9 +11,9 @@
 class Skill < ActiveRecord::Base
   validates :name, presence: true, uniqueness: :true
 
-  has_many :vacancy_skills
+  has_many :vacancy_skills, dependent: :destroy
   has_many :vacancies, through: :vacancy_skills
 
-  has_many :applicant_skills
+  has_many :applicant_skills, dependent: :destroy
   has_many :applicants, through: :applicant_skills
 end

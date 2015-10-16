@@ -15,7 +15,7 @@
 class Vacancy < ActiveRecord::Base
   validates_presence_of :name, :created_date, :validity, :salary, :contact
 
-  has_many :vacancy_skills
+  has_many :vacancy_skills, dependent: :destroy
   has_many :skills, through: :vacancy_skills
 
   scope :active, -> { where("created_date <= now() and (created_date + validity) >= now()") }
