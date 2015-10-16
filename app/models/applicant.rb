@@ -24,6 +24,10 @@ class Applicant < ActiveRecord::Base
   has_many :applicant_skills, dependent: :destroy
   has_many :skills, through: :applicant_skills
 
+  def skill_names
+    skills.pluck(:name).sort
+  end
+
   private
 
   def contact_value

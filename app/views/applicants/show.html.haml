@@ -12,6 +12,9 @@
 %p
   %b Salary:
   = @applicant.salary
+%p
+  %b Skills:
+  = @applicant.skill_names
 
 = link_to 'Edit', edit_applicant_path(@applicant)
 \|

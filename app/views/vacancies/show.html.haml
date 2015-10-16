@@ -17,7 +17,7 @@
   = @vacancy.contact
 %p
   %b Skills:
-  = @vacancy.skills.pluck(:name)
+  = @vacancy.skill_names
 
 = link_to 'Edit', edit_vacancy_path(@vacancy)
 \|

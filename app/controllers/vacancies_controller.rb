@@ -71,11 +71,11 @@ class VacanciesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vacancy_params
-      params.require(:vacancy).permit(:name, :created_date, :validity, :salary, :contact, skills: [])
+      params.require(:vacancy).permit(:name, :created_date, :validity, :salary, :contact)
     end
 
     def update_skills
-      skills = params["skills"] || []
+      skills = params["skill_attributes"] || []
       skills = skills.reject { |c| c.empty? }.uniq
       @vacancy.skills = skills.map { |name| Skill.find_or_create_by(name: name) }
     end

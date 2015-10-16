@@ -28,6 +28,7 @@ class ApplicantsController < ApplicationController
 
     respond_to do |format|
       if @applicant.save
+        update_skills
         format.html { redirect_to @applicant, notice: 'Applicant was successfully created.' }
         format.json { render :show, status: :created, location: @applicant }
       else
@@ -42,6 +43,7 @@ class ApplicantsController < ApplicationController
   def update
     respond_to do |format|
       if @applicant.update(applicant_params)
+        update_skills
         format.html { redirect_to @applicant, notice: 'Applicant was successfully updated.' }
         format.json { render :show, status: :ok, location: @applicant }
       else
@@ -70,5 +72,11 @@ class ApplicantsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def applicant_params
       params.require(:applicant).permit(:name, :contact, :status, :salary)
+    end
+
+    def update_skills
+      skills = params["skill_attributes"] || []
+      skills = skills.reject { |c| c.empty? }.uniq
+      @applicant.skills = skills.map { |name| Skill.find_or_create_by(name: name) }
     end
 end

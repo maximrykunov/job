@@ -20,18 +20,12 @@ class Vacancy < ActiveRecord::Base
 
   scope :active, -> { where("created_date <= now() and (created_date + validity) >= now()") }
 
-  # accepts_nested_attributes_for :vacancy_skills, :reject_if => lambda { |a| a[:name].blank? }, allow_destroy: true
-  accepts_nested_attributes_for :skills, :reject_if => lambda { |a| a[:name].blank? }, allow_destroy: true
-
-  # def skill_name
-  #  skill.try(:name)
-  # end
-
-  # def skill_name=(name)
-  #  self.skill = Skill.find_or_create_by_name(name) if name.present?
-  # end
-
   def active?
     created_date <= Date.today && (created_date + validity) >= Date.today
   end
+
+  def skill_names
+    skills.pluck(:name).sort
+  end
+
 end

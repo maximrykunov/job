@@ -1,0 +1,7 @@
+.skills_area
+  %ol
+    - object.skills.each do |skill|
+      %li
+        = text_field_tag 'skill_attributes[]', skill.name, class: 'skill_with_autocomplete', 'data-autocompleteUrl' => skills_autocomplete_skill_name_path
+        = link_to "remove", "#", class: "remove_skill btn btn-default btn-xs"
+  = link_to "Add skill", "#", class: "add_skill btn btn-primary"

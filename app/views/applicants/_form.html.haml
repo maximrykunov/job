@@ -6,6 +6,7 @@
     = f.input :contact
     = f.input :status
     = f.input :salary
+    = render 'shared/skill_fields', object: @applicant
 
   .form-actions
     = f.button :submit

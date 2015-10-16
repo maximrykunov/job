@@ -10,7 +10,7 @@
 
 FactoryGirl.define do
   factory :skill do
-    name "MyString"
+    sequence(:name) {|n| "skill ##{n}" }
   end
 
 end

@@ -14,7 +14,7 @@
 
 FactoryGirl.define do
   factory :vacancy do
-    name "MyString"
+    sequence(:name) {|n| "Vacancy ##{n}" }
     created_date Date.today
     validity 5
     salary 1

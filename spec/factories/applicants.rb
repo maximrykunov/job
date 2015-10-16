@@ -14,7 +14,7 @@
 FactoryGirl.define do
   factory :applicant do
     name "Свиридов Олег Петрович"
-    contact "test@test.com"
+    sequence(:contact) {|n| "test#{n}@example.com" }
     status 1
     salary 1
   end
