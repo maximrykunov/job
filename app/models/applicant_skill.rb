@@ -12,4 +12,7 @@
 class ApplicantSkill < ActiveRecord::Base
   belongs_to :applicant
   belongs_to :skill
+
+  validates_presence_of :applicant, :skill
+  validates_uniqueness_of :skill_id, scope: :applicant_id
 end

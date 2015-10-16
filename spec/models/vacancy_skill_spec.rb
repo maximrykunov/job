@@ -12,6 +12,10 @@
 require 'rails_helper'
 
 RSpec.describe VacancySkill, type: :model do
+  subject { create :vacancy_skill }
   it { is_expected.to belong_to :vacancy }
   it { is_expected.to belong_to :skill }
+  it { is_expected.to validate_presence_of :vacancy }
+  it { is_expected.to validate_presence_of :skill }
+  it { is_expected.to validate_uniqueness_of(:skill_id).scoped_to(:vacancy_id) }
 end

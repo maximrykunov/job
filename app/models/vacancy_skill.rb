@@ -12,4 +12,7 @@
 class VacancySkill < ActiveRecord::Base
   belongs_to :vacancy
   belongs_to :skill
+
+  validates_presence_of :vacancy, :skill
+  validates_uniqueness_of :skill_id, scope: :vacancy_id
 end
