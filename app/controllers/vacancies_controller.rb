@@ -28,6 +28,7 @@ class VacanciesController < ApplicationController
 
     respond_to do |format|
       if @vacancy.save
+        update_skills
         format.html { redirect_to @vacancy, notice: 'Vacancy was successfully created.' }
         format.json { render :show, status: :created, location: @vacancy }
       else
@@ -42,6 +43,7 @@ class VacanciesController < ApplicationController
   def update
     respond_to do |format|
       if @vacancy.update(vacancy_params)
+        update_skills
         format.html { redirect_to @vacancy, notice: 'Vacancy was successfully updated.' }
         format.json { render :show, status: :ok, location: @vacancy }
       else
@@ -69,6 +71,12 @@ class VacanciesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vacancy_params
-      params.require(:vacancy).permit(:name, :created_date, :validity, :salary, :contact, skills_attributes: [:id, :name, :_destroy])
+      params.require(:vacancy).permit(:name, :created_date, :validity, :salary, :contact, skills: [])
+    end
+
+    def update_skills
+      skills = params["skills"] || []
+      skills = skills.reject { |c| c.empty? }.uniq
+      @vacancy.skills = skills.map { |name| Skill.find_or_create_by(name: name) }
     end
 end

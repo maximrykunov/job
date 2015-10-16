@@ -7,6 +7,14 @@ class SkillsController < ApplicationController
     @skills = Skill.all
   end
 
+  def autocomplete_skill_name
+    skills = Skill.select([:name]).where("name LIKE ?", "%#{params[:name]}%")
+    result = skills.collect do |s|
+      { value: s.name }
+    end
+    render json: result
+  end
+
   # GET /skills/1
   # GET /skills/1.json
   def show

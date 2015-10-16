@@ -7,9 +7,10 @@
     = f.input :validity
     = f.input :salary
     = f.input :contact
-    %div
-      = f.fields_for :skills do |builder|
-        = render 'skill_fields', :f => builder
-      %p= link_to_add_fields "Add skill", f, :skills, "btn btn-primary"
+    = render 'skill_fields'
+    / %div
+    /   = f.fields_for :skills do |builder|
+    /     = render 'skill_fields', :f => builder
+    /   %p= link_to_add_fields "Add skill", f, :skills, "btn btn-primary"
   .form-actions
     = f.button :submit
