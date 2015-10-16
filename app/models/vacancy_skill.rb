@@ -15,4 +15,6 @@ class VacancySkill < ActiveRecord::Base
 
   validates_presence_of :vacancy, :skill
   validates_uniqueness_of :skill_id, scope: :vacancy_id
+
+  accepts_nested_attributes_for :skill, :reject_if => lambda { |a| a[:name].blank? }
 end
