@@ -1,5 +1,5 @@
 class VacanciesController < ApplicationController
-  before_action :set_vacancy, only: [:show, :edit, :update, :destroy]
+  before_action :set_vacancy, only: [:show, :edit, :update, :destroy, :preview]
 
   # GET /vacancies
   # GET /vacancies.json
@@ -10,6 +10,15 @@ class VacanciesController < ApplicationController
   # GET /vacancies/1
   # GET /vacancies/1.json
   def show
+  end
+
+  def preview
+    @applicants = Applicant.active
+      .joins(:applicant_skills)
+      .group("applicants.id")
+      .where("applicant_skills.skill_id IN (SELECT skill_id FROM vacancy_skills WHERE vacancy_id = ?)", @vacancy.id)
+      .select("applicants.*")
+      .order("COUNT(*) DESC")
   end
 
   # GET /vacancies/new

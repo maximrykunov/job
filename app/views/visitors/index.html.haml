@@ -1,0 +1,43 @@
+%h2 Welcome
+.row
+  .col-md-6
+    %h4 Vacancies
+    %table.table.table-bordered.table-hover
+      %thead
+        %tr
+          %th Name
+          %th Created date
+          %th Salary
+          %th Contact
+          %th Skills
+          %th
+
+      %tbody
+        - @vacancies.each do |vacancy|
+          %tr
+            %td= vacancy.name
+            %td= vacancy.created_date
+            %td= vacancy.salary
+            %td= vacancy.contact
+            %td= vacancy.skills.count
+            %td= link_to 'view', preview_vacancy_path(vacancy.to_param)
+
+  .col-md-6
+    %h4 Applicants
+    %table.table.table-bordered.table-hover
+      %thead
+        %tr
+          %th Name
+          %th Contact
+          %th Salary
+          %th Skills
+          %th
+
+      %tbody
+        - @applicants.each do |applicant|
+          %tr
+            %td= applicant.name
+            %td= applicant.contact
+            %td= applicant.salary
+            %td= applicant.skills.count
+            %td= link_to 'view', preview_applicant_path(applicant.to_param)

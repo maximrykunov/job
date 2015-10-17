@@ -1,0 +1,41 @@
+%h3 Vacancy
+
+%p
+  %b Name:
+  = @vacancy.name
+%p
+  %b Created date:
+  = @vacancy.created_date
+%p
+  %b Salary:
+  = @vacancy.salary
+%p
+  %b Contact:
+  = @vacancy.contact
+%p
+  %b Skills:
+  %ul
+    - @vacancy.skills.ordered.each do |skill|
+      %li= skill.name
+
+%h3 Suitable applicants
+%table.table.table-bordered.table-hover
+  %thead
+    %tr
+      %th Name
+      %th Contact
+      %th Salary
+      %th Intersect Skills
+      %th
+
+  %tbody
+    - @applicants.each do |applicant|
+      %tr
+        %td= applicant.name
+        %td= applicant.contact
+        %td= applicant.salary
+        %td
+          %ul
+            - Skill.intersect(applicant.id, @vacancy.id).ordered.each do |skill|
+              %li= skill.name
+        %td= link_to 'view', preview_applicant_path(applicant.to_param)

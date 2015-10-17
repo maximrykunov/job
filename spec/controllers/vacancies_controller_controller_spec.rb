@@ -24,6 +24,19 @@ describe VacanciesController do
     end
   end
 
+  describe "GET preview" do
+    it "assigns the requested vacancy as @vacancy" do
+      get :preview, {:id => @vacancy.to_param}
+      expect(assigns(:vacancy)).to eq(@vacancy)
+      expect(assigns(:applicants)).not_to be_nil
+    end
+
+    it "renders the 'preview' template" do
+      get :preview, {:id => @vacancy.to_param}
+      expect(response).to render_template("preview")
+    end
+  end
+
   describe "GET new" do
     it "assigns a new vacancy as @vacancy" do
       get :new, {}
