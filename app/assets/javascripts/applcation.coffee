@@ -18,3 +18,20 @@ $ ->
   $('.skills_area').on 'click', '.remove_skill', ->
     $(this).parent("li").remove()
     console.log('remove')
+
+@JobsApp = angular
+  .module('JobsApp', [
+    # additional dependencies here
+    'restangular'
+  ])
+  .run(->
+    console.log 'JobsApp running'
+  )
+
+# for compatibility with Rails CSRF protection
+
+@JobsApp.config([
+  '$httpProvider', ($httpProvider)->
+    $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+])
+

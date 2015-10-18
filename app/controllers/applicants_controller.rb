@@ -4,21 +4,21 @@ class ApplicantsController < ApplicationController
   # GET /applicants
   # GET /applicants.json
   def index
-    @applicants = Applicant.all
+    @applicants = Applicant.all.order(:contact)
+  end
+
+  def index_angular
+    @applicants = Applicant.active
   end
 
   # GET /applicants/1
   # GET /applicants/1.json
   def show
+    @vacancies = get_vacancies if params[:vacancies]
   end
 
   def preview
-    @vacancies = Vacancy.active
-      .joins(:vacancy_skills)
-      .group("vacancies.id")
-      .where("vacancy_skills.skill_id IN (SELECT skill_id FROM applicant_skills WHERE applicant_id = ?)", @applicant.id)
-      .select("vacancies.*")
-      .order("COUNT(*) DESC")
+    @vacancies = get_vacancies
   end
 
   # GET /applicants/new
@@ -87,5 +87,14 @@ class ApplicantsController < ApplicationController
       skills = params["skill_attributes"] || []
       skills = skills.reject { |c| c.empty? }.uniq
       @applicant.skills = skills.map { |name| Skill.find_or_create_by(name: name) }
+    end
+
+    def get_vacancies
+      Vacancy.active
+        .joins(:vacancy_skills)
+        .group("vacancies.id")
+        .where("vacancy_skills.skill_id IN (SELECT skill_id FROM applicant_skills WHERE applicant_id = ?)", @applicant.id)
+        .select("vacancies.*, count(*) as intersect_count")
+        .order("COUNT(*) DESC, vacancies.salary DESC")
     end
 end

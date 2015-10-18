@@ -1,0 +1,46 @@
+%div.vacancy_area{"ng-controller" => "VacancyCtrl"}
+
+  .row
+    .col-md-4{"style"=>"height:800px;overflow-y: scroll"}
+      %h4 Listing active vacancies
+      %div
+        %table.table.table-bordered
+          %thead
+            %tr
+              %th #
+              %th Name
+              %th Salary
+              %th Contact
+              %th Skills
+
+          %tbody
+            %tr{"ng-repeat" => "vacancy in vacancies", "ng-click" => "setSelected(vacancy.id)", "ng-class" => "{active: vacancy.id === idSelected}"}
+              %td {{vacancy.id}}
+              %td {{vacancy.name}}
+              %td {{vacancy.salary}}
+              %td {{vacancy.contact}}
+              %td
+                %ul.list-group
+                  %li.list-group-item{"ng-repeat" => "skill in vacancy.skills", "ng-class" => "getSkillClass(vacancy.id, skill.id, currentApplicant.skills)"} {{skill.name}}
+
+    .col-md-8{ "ng-if" => "idSelected", "style"=>"height:800px;overflow-y: scroll"}
+      %h4 Suitable applicants for vacancy ({{currentVacancy.name}})
+      %table.table.table-bordered
+        %thead
+          %tr
+            %th #
+            %th Name
+            %th Salary
+            %th Contact
+            %th Overlap
+            %th Skills
+          %tr{"ng-repeat" => "applicant in currentVacancy.applicants", "ng-click" => "setRelSelected(applicant)", "ng-class" => "{active: applicant.id === idRelSelected}"}
+            %td {{applicant.id}}
+            %td {{applicant.name}}
+            %td {{applicant.salary}}
+            %td {{applicant.contact}}
+            %td {{((applicant.intersect_skills/currentVacancy.skills.length)*100).toFixed(0)}}%
+            %td
+              %ul.list-group
+                %li.list-group-item{"ng-repeat" => "skill in applicant.skills", "ng-class" => "{'list-group-item-success': compareSkill(skill.id, currentVacancy.skills)}"} {{skill.name}}
+  %br

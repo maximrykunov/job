@@ -5,6 +5,7 @@
     %table.table.table-bordered.table-hover
       %thead
         %tr
+          %th #
           %th Name
           %th Created date
           %th Salary
@@ -15,6 +16,7 @@
       %tbody
         - @vacancies.each do |vacancy|
           %tr
+            %td= vacancy.id
             %td= vacancy.name
             %td= vacancy.created_date
             %td= vacancy.salary
@@ -27,6 +29,7 @@
     %table.table.table-bordered.table-hover
       %thead
         %tr
+          %th #
           %th Name
           %th Contact
           %th Salary
@@ -36,6 +39,7 @@
       %tbody
         - @applicants.each do |applicant|
           %tr
+            %td= applicant.id
             %td= applicant.name
             %td= applicant.contact
             %td= applicant.salary
