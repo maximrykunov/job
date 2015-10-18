@@ -29,6 +29,11 @@ Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.
 Getting Started
 ---------------
 
+rake db:setup
+or
+rake db:create
+rake db:seed
+
 Documentation and Support
 -------------------------
 
